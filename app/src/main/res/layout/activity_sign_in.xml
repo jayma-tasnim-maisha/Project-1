@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="#FFFFFF"
+    tools:context=".SignInActivity">
+
+    <TextView
+        android:id="@+id/tv_login_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "log In"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#036607"
+        android:layout_marginBottom="40dp"
+        />
+
+    <EditText
+        android:id="@+id/et_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="E-mail / Username"
+        android:textColorHint="#7E7C7C"
+        android:inputType="text"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@android:color/black"
+        android:background="@android:drawable/editbox_background"
+        android:autofillHints="username"
+        />
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:textColorHint="#7E7C7C"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@android:color/black"
+        android:background="@android:drawable/editbox_background"
+        android:autofillHints="password"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="12dp"
+            android:backgroundTint="#036607"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="Sign Up"
+            android:layout_marginEnd="8dp"
+            />
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="12dp"
+            android:backgroundTint="#036607"
+            android:text="Log In"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginStart="8dp"
+            />
+    </LinearLayout>
+
+</LinearLayout>
