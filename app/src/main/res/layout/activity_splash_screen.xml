@@ -10,13 +10,12 @@
     tools:context=".SplashScreen">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/splash_logo"
         android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:src="@drawable/grocio_logo"
         android:contentDescription="Grocio Logo"
         android:layout_gravity="center"
-
         />
     <TextView
         android:id="@+id/textView"
