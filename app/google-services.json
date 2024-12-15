@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "100764738236",
+    "project_id": "fir-app-85724",
+    "storage_bucket": "fir-app-85724.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100764738236:android:3211dff2216f698f5ce6b9",
+        "android_client_info": {
+          "package_name": "com.example.grocio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4fR2f2-FjiDoWfuQagc1es5ChY7k_DWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
