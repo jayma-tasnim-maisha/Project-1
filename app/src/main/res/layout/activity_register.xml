@@ -1,127 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="20dp"
     android:gravity="center"
-    android:background="#EDF7FF"
-    tools:context=".MainActivity">
+    android:background="#F5F5F5">
 
 
     <TextView
         android:id="@+id/tv_register_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "Sign Up"
-        android:textColor="#036607"
-        android:textSize="30sp"
+        android:text="Create Your Account"
+        android:textAlignment="center"
+        android:textColor="@color/heading_color"
+        android:textSize="32sp"
         android:textStyle="bold"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="24dp" />
+
+
     <EditText
         android:id="@+id/et_register_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name"
-        android:textColorHint="#7E7C7C"
-        android:inputType="text"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp"
+        android:hint="Username"
+        android:padding="16dp"
         android:textColor="@android:color/black"
+        android:textColorHint="#9E9E9E"
         android:background="@android:drawable/editbox_background"
-        android:autofillHints="name"
-        />
+        android:layout_marginBottom="16dp"
+        android:inputType="text" />
+
+
     <EditText
         android:id="@+id/et_register_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="E-mail"
-        android:textColorHint="#7E7C7C"
-        android:inputType="text"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp"
+        android:hint="Email"
+        android:padding="16dp"
         android:textColor="@android:color/black"
+        android:textColorHint="#9E9E9E"
         android:background="@android:drawable/editbox_background"
-        android:autofillHints="E-mail"
-        />
+        android:layout_marginBottom="16dp"
+        android:inputType="textEmailAddress" />
+
+
     <EditText
         android:id="@+id/et_register_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Must include a letter and a number"
-        android:textColorHint="#7E7C7C"
-        android:inputType="textPassword"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp"
+        android:hint="Password (Letter &amp; Number required)"
+        android:padding="16dp"
         android:textColor="@android:color/black"
+        android:textColorHint="#9E9E9E"
         android:background="@android:drawable/editbox_background"
-        android:autofillHints="password"
-        />
+        android:layout_marginBottom="16dp"
+        android:inputType="textPassword" />
+
+
     <EditText
         android:id="@+id/et_confirm_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Confirm Password"
-        android:textColorHint="#7E7C7C"
-        android:inputType="textPassword"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp"
+        android:padding="16dp"
         android:textColor="@android:color/black"
+        android:textColorHint="#9E9E9E"
         android:background="@android:drawable/editbox_background"
-        android:autofillHints="confirm password"
-        />
+        android:layout_marginBottom="16dp"
+        android:inputType="textPassword" />
+
+
     <EditText
         android:id="@+id/et_register_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone"
-        android:textColorHint="#7E7C7C"
-        android:inputType="phone"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp"
+        android:hint="Phone Number"
+        android:padding="16dp"
         android:textColor="@android:color/black"
+        android:textColorHint="#9E9E9E"
         android:background="@android:drawable/editbox_background"
-        android:autofillHints="confirm password"
-        />
+        android:layout_marginBottom="16dp"
+        android:inputType="phone" />
+
+
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:backgroundTint="#096E56"
+        android:textColor="@android:color/white"
+        android:padding="16dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
 
-        <Button
-            android:id="@+id/btn_sign_up_login"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_already_account"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="12dp"
-            android:backgroundTint="#036607"
-            android:text="Log In"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_marginEnd="8dp"
+            android:text="Already have an account?"
+            android:textSize="16sp"
+            android:textColor="#3E3E3E" />
 
-            />
-
-        <Button
-            android:id="@+id/btn_sign_up_register"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_signin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="12dp"
-            android:backgroundTint="#FF036607"
-            android:textColor="@color/white"
+            android:text="Sign In"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:text="Register"
-            android:layout_marginStart="8dp"
-            />
-
+            android:textColor="#096E56"/>
     </LinearLayout>
-
-
-
 </LinearLayout>

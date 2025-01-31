@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,14 +22,17 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private EditText etUsername,etPassword;
-    private Button btnLogin,btnRegister;
+    private EditText etUsername, etPassword;
+    private Button btnSignin;
+    private TextView tvSignUp;
     private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.primary_color));
 
         // Check if the user is already logged in
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
@@ -43,28 +47,36 @@ public class SignInActivity extends AppCompatActivity {
 
         etUsername = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
-        btnLogin = findViewById(R.id.btn_login);
-        btnRegister = findViewById(R.id.btn_register);
+        btnSignin = findViewById(R.id.btn_signin);
+        tvSignUp = findViewById(R.id.tv_signup);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        btnRegister.setOnClickListener(v-> {
-            Intent intent = new Intent(SignInActivity.this,RegisterActivity.class);
-            startActivity(intent);
+        tvSignUp.setOnClickListener(v -> {
+            Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
+            startActivity(intent);  // Start RegisterActivity
         });
 
-        btnLogin.setOnClickListener(v-> {
+        btnSignin.setOnClickListener(v -> {
 
             String username = etUsername.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
 
+            // Check if the entered username and password are for the admin
+            if (username.equals("admin") && password.equals("admin")) {
+                // If credentials match admin, go to AdminHomeActivity
+               // Intent intent = new Intent(MainActivity.this, AdminHomeActivity.class);
+               // startActivity(intent);
+                finish();
+                return; // Exit early to prevent Firebase login attempt
+            }
+
             if (validateInputs(username, password)) {
                 signInWithFirebase(username, password);
             } else {
-                Toast.makeText(SignInActivity.this,"Please enter valid credentials",Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignInActivity.this, "Please enter valid credentials", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private boolean validateInputs(String username, String password) {
@@ -93,12 +105,10 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private boolean isValidUsername(String username) {
-
         return username.matches("^[A-Za-z][A-Za-z0-9]*$") || Patterns.EMAIL_ADDRESS.matcher(username).matches();
     }
 
     private boolean isValidPassword(String password) {
-
         return password.length() >= 6 && password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*");
     }
 
@@ -106,13 +116,13 @@ public class SignInActivity extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Save login state in SharedPreferences
+
+                        // Saving login state in SharedPreferences
                         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean("isLoggedIn", true); // Save login state as true
                         editor.apply();
 
-                        // Redirect to HomeActivity
                         Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
@@ -123,7 +133,4 @@ public class SignInActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
 }
-

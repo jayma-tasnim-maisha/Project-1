@@ -6,9 +6,11 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,7 +18,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText etRegisterName, etRegisterEmail, etRegisterPassword, etConfirmPassword, etRegisterPhone;
-    private Button btnSignupLogin, btnSignupRegister;
+    private Button btnSignup;
+    private TextView tvSignin;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -24,19 +27,26 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.primary_color));
+
         etRegisterName = findViewById(R.id.et_register_name);
         etRegisterEmail = findViewById(R.id.et_register_email);
         etRegisterPassword = findViewById(R.id.et_register_password);
         etConfirmPassword = findViewById(R.id.et_confirm_password);
         etRegisterPhone = findViewById(R.id.et_register_phone);
 
-        btnSignupLogin = findViewById(R.id.btn_sign_up_login);
-        btnSignupRegister = findViewById(R.id.btn_sign_up_register);
+        btnSignup = findViewById(R.id.btn_signup);
+        tvSignin = findViewById(R.id.tv_signin);
 
         // Initializing FirebaseAuth instance for user authentication
         firebaseAuth = FirebaseAuth.getInstance();
 
-        btnSignupRegister.setOnClickListener(v -> {
+        tvSignin.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+            startActivity(intent);  // Start RegisterActivity
+        });
+
+        btnSignup.setOnClickListener(v -> {
             if (validateInputs()) {
                 String email = etRegisterEmail.getText().toString();
                 String password = etRegisterPassword.getText().toString();
@@ -58,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                                     // Sign out the user and redirect to SignInActivity
                                                     firebaseAuth.signOut();
-                                                    startActivity(new Intent(RegisterActivity.this, SignInActivity.class));
+                                                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                                                     finish();
                                                 }
                                                 else {
@@ -77,10 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        btnSignupLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
-            startActivity(intent);
-        });
+
     }
 
     private boolean validateInputs() {
@@ -101,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (!isValidPassword(password)) {
-            etRegisterPassword.setError("Password must be at least 6 characters");
+            etRegisterPassword.setError("Must be 6+ chars & at-least 1 digit");
             return false;
         }
 
