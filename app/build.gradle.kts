@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
@@ -26,6 +27,10 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -46,4 +51,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:23.1.0")
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     implementation("com.google.firebase:firebase-analytics")
+
+    //implementation("androidx.navigation:navigation-fragment-ktx:2.8.6")
+   // implementation("androidx.navigation:navigation-ui-ktx:2.8.6")
+
 }

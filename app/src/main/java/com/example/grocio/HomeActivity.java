@@ -1,23 +1,55 @@
 package com.example.grocio;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.grocio.databinding.ActivityHomeBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private Button shopNowBtn, ordersBtn, settingsBtn, logoutBtn;
-    private FirebaseAuth firebaseAuth;
+    private ActivityHomeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
+        // Set the default fragment to be displayed (HomeFragment)
+        if (savedInstanceState == null) {
+            replaceFragment(new HomeFragment());
+        }
+
+        // Set up the BottomNavigationView with if-else instead of switch
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+
+            if (item.getItemId() == R.id.home) {
+                selectedFragment = new HomeFragment();
+            } else if (item.getItemId() == R.id.search) {
+                selectedFragment = new SearchFragment();
+            } else if (item.getItemId() == R.id.cart) {
+                selectedFragment = new CartFragment();
+            } else if (item.getItemId() == R.id.profile) {
+                selectedFragment = new ProfileFragment();
+            }
+
+            if (selectedFragment != null) {
+                replaceFragment(selectedFragment);
+            }
+
+            return true;
+        });
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
     }
 }
