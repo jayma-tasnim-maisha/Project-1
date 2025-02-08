@@ -64,9 +64,8 @@ public class SignInActivity extends AppCompatActivity {
 
             // Check if the entered username and password are for the admin
             if (username.equals("admin") && password.equals("admin")) {
-                // If credentials match admin, go to AdminHomeActivity
-               // Intent intent = new Intent(MainActivity.this, AdminHomeActivity.class);
-               // startActivity(intent);
+                Intent intent = new Intent(SignInActivity.this, AdminHomeActivity.class);
+                startActivity(intent);
                 finish();
                 return; // Exit early to prevent Firebase login attempt
             }

@@ -2,4 +2,13 @@
     <string name="app_name">Grocio</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Category array -->
+    <string-array name="category_array">
+        <item>Vegetable</item>
+        <item>Meat</item>
+        <item>Fish</item>
+        <item>Bread</item>
+        <item>Dairy</item>
+    </string-array>
 </resources>

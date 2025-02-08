@@ -1,64 +1,106 @@
 package com.example.grocio;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.fragment.app.Fragment;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    // Firebase Authentication instance
+    private FirebaseAuth mAuth;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    // Views for displaying the user's data
+    private TextView userNameTextView;
+    private TextView userEmailTextView;
+    private Button editProfileButton, logoutButton;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        // Find views from layout
+        userNameTextView = view.findViewById(R.id.user_name);
+        userEmailTextView = view.findViewById(R.id.user_email);
+        editProfileButton = view.findViewById(R.id.edit_profile_button);
+        logoutButton = view.findViewById(R.id.logout_button);
+
+        // Get the current logged-in user
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            // Get user details
+            String userName = currentUser.getDisplayName();
+            String userEmail = currentUser.getEmail();
+
+            // If userName is null, fall back to the email's first part as a name
+            if (userName == null || userName.isEmpty()) {
+                userName = userEmail.split("@")[0];
+            }
+
+            // Display user information in the TextViews
+            userNameTextView.setText(userName);
+            userEmailTextView.setText(userEmail);
+        } else {
+            // No user is logged in
+            Toast.makeText(getActivity(), "No user is logged in", Toast.LENGTH_SHORT).show();
+        }
+
+        // Set the Edit Profile button functionality
+        editProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set the Logout button functionality
+        // Set the Logout button functionality
+        logoutButton.setOnClickListener(v -> {
+            // Clear the login state from SharedPreferences
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isLoggedIn", false); // Reset login state
+            editor.apply();
+
+            // Navigate back to SignInActivity and clear the back stack
+            Intent intent = new Intent(getActivity(), SignInActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+
+            // Close the current activity
+            requireActivity().finish();  // Correct way to finish the hosting activity in a fragment
+        });
+
+
+
+        return view;
     }
 }
