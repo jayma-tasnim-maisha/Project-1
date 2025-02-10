@@ -5,72 +5,182 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    public static final String DATABASE_NAME = "Test_DB";
+    public static final int DATABASE_VERSION = 3;
 
-    // Database Name and Version
-    public static final String DATABASE_NAME = "grocio.db";
-    public static final int DATABASE_VERSION = 1;
-
-    // Table and Column Names
+    // Products table constants
     public static final String TABLE_PRODUCTS = "products";
     public static final String COL_ID = "_id";
     public static final String COL_PRODUCT_NAME = "productName";
     public static final String COL_PRODUCT_PRICE = "productPrice";
-    public static final String COL_PRODUCT_CATEGORY = "productCategory";
     public static final String COL_PRODUCT_QUANTITY = "productQuantity";
     public static final String COL_PRODUCT_IMAGE_URI = "productImageUri";
+    public static final String COL_PRODUCT_DESCRIPTION = "productDescription";
+    public static final String COL_PRODUCT_CATEGORY = "productCategory";
 
-    // SQL Create Table Statement
-    private static final String CREATE_TABLE_PRODUCTS = "CREATE TABLE " + TABLE_PRODUCTS + " ("
-            + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + COL_PRODUCT_NAME + " TEXT, "
-            + COL_PRODUCT_PRICE + " REAL, "
-            + COL_PRODUCT_CATEGORY + " TEXT, "
-            + COL_PRODUCT_QUANTITY + " INTEGER, "
-            + COL_PRODUCT_IMAGE_URI + " TEXT)";
+    // Doctors table constants
+    public static final String TABLE_DOCTORS = "doctors";
+    public static final String COL_DOCTOR_ID = "_id";
+    public static final String COL_DOCTOR_NAME = "doctorName";
+    public static final String COL_DOCTOR_SPECIALIZATION = "doctorSpecialization";
+    public static final String COL_DOCTOR_CONTACT = "doctorContact";
+    public static final String COL_DOCTOR_EMAIL = "doctorEmail";
+
+    public static final String TABLE_CART = "cart";
+    public static final String COL_CART_PRODUCT_ID = "product_id";
+    public static final String COL_CART_PRODUCT_NAME = "product_name";
+    public static final String COL_CART_PRODUCT_PRICE = "product_price";
+
 
     // Constructor
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    // OnCreate: Called when the database is created
     @Override
+
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_PRODUCTS);
+        db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (" +
+                COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_PRODUCT_NAME + " TEXT, " +
+                COL_PRODUCT_DESCRIPTION + " TEXT, " +
+                COL_PRODUCT_CATEGORY + " TEXT, " +
+                COL_PRODUCT_PRICE + " REAL, " +
+                COL_PRODUCT_QUANTITY + " INTEGER, " +
+                COL_PRODUCT_IMAGE_URI + " BLOB)");
+
+        // Create the doctors table
+        db.execSQL("CREATE TABLE " + TABLE_DOCTORS + " (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "doctorName TEXT, " +
+                "doctorSpecialization TEXT, " +
+                "doctorContact TEXT, " +
+                "doctorEmail TEXT)");
+
+        db.execSQL("CREATE TABLE " + TABLE_CART + " ("
+                + COL_CART_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_CART_PRODUCT_NAME + " TEXT, "
+                + COL_CART_PRODUCT_PRICE + " REAL)");
+
+
+
     }
 
-    // OnUpgrade: Called when the database version is upgraded
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Drop existing tables if they exist
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOCTORS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CART); // Added this line
         onCreate(db);
     }
 
-    // Method to insert a new product
-    public long insertProduct(String name, double price, String category, int quantity, String imageUri) {
+
+    // Get product by ID
+    public Cursor getProductById(int productId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_PRODUCTS + " WHERE " + COL_ID + " = ?", new String[]{String.valueOf(productId)});
+    }
+
+    // Update product details
+    public boolean updateProduct(int id, String name, String description, String category, double price, int quantity, byte[] image) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_PRODUCT_NAME, name);
-        values.put(COL_PRODUCT_PRICE, price);
+        values.put(COL_PRODUCT_DESCRIPTION, description);
         values.put(COL_PRODUCT_CATEGORY, category);
+        values.put(COL_PRODUCT_PRICE, price);
         values.put(COL_PRODUCT_QUANTITY, quantity);
-        values.put(COL_PRODUCT_IMAGE_URI, imageUri);
-        return db.insert(TABLE_PRODUCTS, null, values);
+        values.put(COL_PRODUCT_IMAGE_URI, image);
+
+        int rowsAffected = db.update(TABLE_PRODUCTS, values, COL_ID + " = ?", new String[]{String.valueOf(id)});
+        return rowsAffected > 0;
     }
 
-    // Method to get products by category (returns a Cursor)
-    public Cursor getProductsByCategory(String category) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_PRODUCTS + " WHERE " + COL_PRODUCT_CATEGORY + " = ?";
-        return db.rawQuery(query, new String[]{category});
+    // Insert a product
+    public void insertProduct(String name, String description, String category, double price, int quantity, byte[] imageByteArray) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_PRODUCT_NAME, name);
+        values.put(COL_PRODUCT_DESCRIPTION, description);
+        values.put(COL_PRODUCT_CATEGORY, category);
+        values.put(COL_PRODUCT_PRICE, price);
+        values.put(COL_PRODUCT_QUANTITY, quantity);
+        values.put(COL_PRODUCT_IMAGE_URI, imageByteArray);
+        db.insert(TABLE_PRODUCTS, null, values);
+        db.close();
     }
 
-    // Method to get all products (returns a Cursor)
+    // Get all products
     public Cursor getAllProducts() {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_PRODUCTS;
-        return db.rawQuery(query, null);
+        return db.rawQuery("SELECT * FROM " + TABLE_PRODUCTS, null);
     }
+
+    public Cursor getProductsByCategory(String category) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_PRODUCTS + " WHERE " + COL_PRODUCT_CATEGORY + " = ?", new String[]{category});
+    }
+
+
+    // Get product by name (search by product name)
+    public Cursor getProductByName(String productName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_PRODUCTS + " WHERE " + COL_PRODUCT_NAME + " LIKE ?", new String[]{"%" + productName + "%"});
+    }
+
+    // Insert doctor
+    public boolean insertDoctor(String name, String specialization, String contact, String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_DOCTOR_NAME, name);
+        values.put(COL_DOCTOR_SPECIALIZATION, specialization);
+        values.put(COL_DOCTOR_CONTACT, contact);
+        values.put(COL_DOCTOR_EMAIL, email);
+
+        long result = db.insert(TABLE_DOCTORS, null, values);
+        return result != -1;  // Return true if the insert was successful
+    }
+
+
+    // Get all doctors
+    public Cursor getAllDoctors() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_DOCTORS, null);
+    }
+
+    // Delete product by name
+    public void deleteProductByName(String productName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_PRODUCTS, COL_PRODUCT_NAME + " = ?", new String[]{productName});
+        db.close();
+    }
+
+    public boolean deleteDoctorById(int doctorId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsDeleted = db.delete(TABLE_DOCTORS, COL_ID + " = ?", new String[]{String.valueOf(doctorId)});
+        return rowsDeleted > 0;  // Returns true if a row was deleted
+    }
+
+    public boolean addToCart(String productName, double productPrice) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_CART_PRODUCT_NAME, productName);
+        values.put(COL_CART_PRODUCT_PRICE, productPrice);
+
+        long result = db.insert(TABLE_CART, null, values);
+        return result != -1;
+    }
+    public Cursor getCartItems() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.query(TABLE_CART, null, null, null, null, null, null);
+    }
+
+
+
+
 }

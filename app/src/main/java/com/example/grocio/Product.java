@@ -1,28 +1,46 @@
 package com.example.grocio;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 public class Product {
-    private int id;
     private String name;
+    private Bitmap image;  // Store image as Bitmap
     private double price;
-    private String category;
-    private byte[] imageBytes;
 
     // Constructor
-    public Product(int id, String name, double price, String category, byte[] imageBytes) {
-        this.id = id;
+    public Product(String name, Bitmap image, double price) {
         this.name = name;
+        this.image = image;
         this.price = price;
-        this.category = category;
-        this.imageBytes = imageBytes;
     }
 
-    // Getters and setters (optional)
-    public int getId() { return id; }
-    public String getName() { return name; }
-    public double getPrice() { return price; }
-    public String getCategory() { return category; }
-    public byte[] getImageBytes() { return imageBytes; }
+
+    public String getName() {
+        return name;
+    }
+
+
+    public Bitmap getImage() {
+        return image;
+    }
+
+
+    public double getPrice() {
+        return price;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
+
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }

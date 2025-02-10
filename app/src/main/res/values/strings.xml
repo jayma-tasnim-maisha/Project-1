@@ -5,7 +5,9 @@
 
     <!-- Category array -->
     <string-array name="category_array">
+        <item>Select Category</item>
         <item>Vegetable</item>
+        <item>Fruit</item>
         <item>Meat</item>
         <item>Fish</item>
         <item>Bread</item>
