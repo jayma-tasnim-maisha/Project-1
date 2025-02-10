@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:padding="16dp">
 
     <!-- Profile Picture -->
@@ -10,11 +11,10 @@
         android:id="@+id/profile_image"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src="@drawable/dp"
+        android:src="@drawable/ic_dp"
         android:contentDescription="Profile Picture"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="50dp"
-        android:background="@drawable/circular_image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -55,30 +55,6 @@
     android:layout_marginTop="8dp"
     android:padding="12dp" />
 
-    <!-- Email Field -->
-    <TextView
-        android:id="@+id/email_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/edit_username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
-
-    <EditText
-        android:id="@+id/edit_email"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-    android:hint="Enter email"
-    android:inputType="textEmailAddress"
-    app:layout_constraintTop_toBottomOf="@id/email_label"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:layout_marginTop="8dp"
-    android:padding="12dp" />
 
     <!-- Save Button -->
     <Button
@@ -88,7 +64,7 @@
     android:text="Save"
     android:backgroundTint="@color/primary_color"
     android:textColor="@android:color/white"
-    app:layout_constraintTop_toBottomOf="@id/edit_email"
+    app:layout_constraintTop_toBottomOf="@id/edit_username"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     android:layout_marginTop="32dp"/>

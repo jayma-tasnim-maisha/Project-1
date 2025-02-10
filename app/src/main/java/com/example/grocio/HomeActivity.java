@@ -2,6 +2,7 @@ package com.example.grocio;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,6 +20,8 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.primary_color));
+
         // Set the default fragment to be displayed (HomeFragment)
         if (savedInstanceState == null) {
             replaceFragment(new HomeFragment());
@@ -30,8 +33,6 @@ public class HomeActivity extends AppCompatActivity {
 
             if (item.getItemId() == R.id.home) {
                 selectedFragment = new HomeFragment();
-            } else if (item.getItemId() == R.id.search) {
-                selectedFragment = new SearchFragment();
             } else if (item.getItemId() == R.id.cart) {
                 selectedFragment = new CartFragment();
             } else if (item.getItemId() == R.id.profile) {

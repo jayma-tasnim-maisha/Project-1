@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 public class DeleteProductActivity extends AppCompatActivity {
 
@@ -33,6 +34,8 @@ public class DeleteProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_product);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.primary_color));
 
         editTextName = findViewById(R.id.text_view_product_name);
         textViewProductPrice = findViewById(R.id.text_view_product_price);

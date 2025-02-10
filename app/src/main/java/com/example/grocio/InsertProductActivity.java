@@ -22,13 +22,13 @@ import java.io.IOException;
 
 public class InsertProductActivity extends AppCompatActivity {
 
-    private EditText productNameEditText, productPriceEditText, productQuantityEditText, productDescriptionEditText;
+    private EditText productNameEditText, productPriceEditText, productQuantityEditText;
     private Spinner categorySpinner;
     private ImageView selectedImageView;
     private Button selectImageButton, insertProductButton;
     private DatabaseHelper databaseHelper;
     private byte[] imageByteArray;
-    private String selectedCategory = "OTC Medicine"; // Default category
+    private String selectedCategory = "Select Category"; // Default category
 
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
@@ -40,7 +40,6 @@ public class InsertProductActivity extends AppCompatActivity {
         productNameEditText = findViewById(R.id.et_product_name);
         productPriceEditText = findViewById(R.id.et_product_price);
         productQuantityEditText = findViewById(R.id.et_product_quantity);
-        productDescriptionEditText = findViewById(R.id.et_product_description);
         categorySpinner = findViewById(R.id.spinner_category);
         selectedImageView = findViewById(R.id.iv_selected_image);
         selectImageButton = findViewById(R.id.btn_select_image);
@@ -65,7 +64,7 @@ public class InsertProductActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                selectedCategory = "OTC Medicine";
+                selectedCategory = "Select Category";
             }
         });
 
@@ -101,10 +100,9 @@ public class InsertProductActivity extends AppCompatActivity {
 
     private void insertProduct() {
         String name = productNameEditText.getText().toString();
-        String description = productDescriptionEditText.getText().toString();
         String category = selectedCategory;
 
-        if (name.isEmpty() || description.isEmpty() || imageByteArray == null) {
+        if (name.isEmpty() || imageByteArray == null) {
             Toast.makeText(this, "Please fill all fields and select an image", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -112,7 +110,7 @@ public class InsertProductActivity extends AppCompatActivity {
         double price = Double.parseDouble(productPriceEditText.getText().toString());
         int quantity = Integer.parseInt(productQuantityEditText.getText().toString());
 
-        databaseHelper.insertProduct(name, description, category, price, quantity, imageByteArray);
+        databaseHelper.insertProduct(name, category, price, quantity, imageByteArray);
         Toast.makeText(this, "Product inserted successfully", Toast.LENGTH_SHORT).show();
     }
 }

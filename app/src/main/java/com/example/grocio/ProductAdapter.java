@@ -43,13 +43,11 @@ public class ProductAdapter extends CursorAdapter {
         TextView nameTextView = view.findViewById(R.id.text_view_product_name);
         TextView priceTextView = view.findViewById(R.id.text_view_product_price);
         TextView quantityTextView = view.findViewById(R.id.text_view_product_quantity);
-        TextView descriptionTextView = view.findViewById(R.id.text_view_product_details);  // New
         TextView categoryTextView = view.findViewById(R.id.text_view_product_category);  // New
         ImageView productImageView = view.findViewById(R.id.image_view_product);
 
         // Get product data from the cursor
         String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_PRODUCT_NAME));
-        String description = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_PRODUCT_DESCRIPTION));  // New
         String category = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_PRODUCT_CATEGORY));  // New
         double price = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_PRODUCT_PRICE));
         int quantity = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_PRODUCT_QUANTITY));
@@ -58,8 +56,7 @@ public class ProductAdapter extends CursorAdapter {
         // Set data to TextViews and ImageView
         nameTextView.setText(name);
         priceTextView.setText("Price: " + price + " Tk");
-        quantityTextView.setText("Quantity: " + quantity);
-        descriptionTextView.setText("Details: " + description);  // New
+        quantityTextView.setText("Quantity: " + quantity + " kg");
         categoryTextView.setText("Category: " + category);  // New
 
         // Decode image byte array to Bitmap
@@ -78,7 +75,6 @@ public class ProductAdapter extends CursorAdapter {
                 Intent updateIntent = new Intent(context, UpdateProductActivity.class);
                 updateIntent.putExtra("product_id", cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_ID)));
                 updateIntent.putExtra("product_name", name);
-                updateIntent.putExtra("product_description", description);  // New
                 updateIntent.putExtra("product_category", category);  // New
                 updateIntent.putExtra("product_price", price);
                 updateIntent.putExtra("product_quantity", quantity);

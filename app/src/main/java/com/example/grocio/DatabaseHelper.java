@@ -18,16 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_PRODUCT_PRICE = "productPrice";
     public static final String COL_PRODUCT_QUANTITY = "productQuantity";
     public static final String COL_PRODUCT_IMAGE_URI = "productImageUri";
-    public static final String COL_PRODUCT_DESCRIPTION = "productDescription";
     public static final String COL_PRODUCT_CATEGORY = "productCategory";
-
-    // Doctors table constants
-    public static final String TABLE_DOCTORS = "doctors";
-    public static final String COL_DOCTOR_ID = "_id";
-    public static final String COL_DOCTOR_NAME = "doctorName";
-    public static final String COL_DOCTOR_SPECIALIZATION = "doctorSpecialization";
-    public static final String COL_DOCTOR_CONTACT = "doctorContact";
-    public static final String COL_DOCTOR_EMAIL = "doctorEmail";
 
     public static final String TABLE_CART = "cart";
     public static final String COL_CART_PRODUCT_ID = "product_id";
@@ -46,19 +37,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (" +
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL_PRODUCT_NAME + " TEXT, " +
-                COL_PRODUCT_DESCRIPTION + " TEXT, " +
                 COL_PRODUCT_CATEGORY + " TEXT, " +
                 COL_PRODUCT_PRICE + " REAL, " +
                 COL_PRODUCT_QUANTITY + " INTEGER, " +
                 COL_PRODUCT_IMAGE_URI + " BLOB)");
 
-        // Create the doctors table
-        db.execSQL("CREATE TABLE " + TABLE_DOCTORS + " (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "doctorName TEXT, " +
-                "doctorSpecialization TEXT, " +
-                "doctorContact TEXT, " +
-                "doctorEmail TEXT)");
 
         db.execSQL("CREATE TABLE " + TABLE_CART + " ("
                 + COL_CART_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -74,7 +57,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop existing tables if they exist
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOCTORS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CART); // Added this line
         onCreate(db);
     }
@@ -91,7 +73,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_PRODUCT_NAME, name);
-        values.put(COL_PRODUCT_DESCRIPTION, description);
         values.put(COL_PRODUCT_CATEGORY, category);
         values.put(COL_PRODUCT_PRICE, price);
         values.put(COL_PRODUCT_QUANTITY, quantity);
@@ -102,11 +83,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Insert a product
-    public void insertProduct(String name, String description, String category, double price, int quantity, byte[] imageByteArray) {
+    public void insertProduct(String name, String category, double price, int quantity, byte[] imageByteArray) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_PRODUCT_NAME, name);
-        values.put(COL_PRODUCT_DESCRIPTION, description);
         values.put(COL_PRODUCT_CATEGORY, category);
         values.put(COL_PRODUCT_PRICE, price);
         values.put(COL_PRODUCT_QUANTITY, quantity);

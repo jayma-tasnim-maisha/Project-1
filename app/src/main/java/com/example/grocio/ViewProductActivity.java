@@ -6,6 +6,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 
 public class ViewProductActivity extends AppCompatActivity {
     private ListView listViewProducts;
@@ -17,6 +18,8 @@ public class ViewProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_product);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.primary_color));
 
         listViewProducts = findViewById(R.id.list_view_products);
         searchView = findViewById(R.id.search_view);

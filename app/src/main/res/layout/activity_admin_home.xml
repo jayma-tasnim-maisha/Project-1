@@ -28,8 +28,17 @@
         android:id="@+id/btn_view_product"
         android:layout_width="200dp"
         android:layout_height="89dp"
-        android:text="View Product\nUpdate product\nDeleteProduct"
+        android:text="View Product\nUpdate product\nDelete Product"
         android:textColor="@color/white"
         android:backgroundTint="@color/primary_color"/>
 
+    <!-- Button to go to HomeFragment -->
+    <Button
+        android:id="@+id/user_view"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="300dp"
+        android:text="View as User"
+        android:textColor="@color/white"
+        android:backgroundTint="#004881"/>
 </LinearLayout>
