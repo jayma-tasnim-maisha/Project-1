@@ -133,25 +133,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.rawQuery("SELECT * FROM " + TABLE_PRODUCTS + " WHERE " + COL_PRODUCT_NAME + " LIKE ?", new String[]{"%" + productName + "%"});
     }
 
-    // Insert doctor
-    public boolean insertDoctor(String name, String specialization, String contact, String email) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COL_DOCTOR_NAME, name);
-        values.put(COL_DOCTOR_SPECIALIZATION, specialization);
-        values.put(COL_DOCTOR_CONTACT, contact);
-        values.put(COL_DOCTOR_EMAIL, email);
-
-        long result = db.insert(TABLE_DOCTORS, null, values);
-        return result != -1;  // Return true if the insert was successful
-    }
-
-
-    // Get all doctors
-    public Cursor getAllDoctors() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_DOCTORS, null);
-    }
 
     // Delete product by name
     public void deleteProductByName(String productName) {
@@ -160,11 +141,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public boolean deleteDoctorById(int doctorId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        int rowsDeleted = db.delete(TABLE_DOCTORS, COL_ID + " = ?", new String[]{String.valueOf(doctorId)});
-        return rowsDeleted > 0;  // Returns true if a row was deleted
-    }
 
     public boolean addToCart(String productName, double productPrice) {
         SQLiteDatabase db = this.getWritableDatabase();

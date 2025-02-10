@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.example.grocio.databinding.FragmentHomeBinding;
@@ -19,25 +18,18 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        // When vegetable category is clicked
-        binding.vegetableCategoryCard.setOnClickListener(v -> {
-            openCategory("Vegetables");
-        });
-
-        // When fruit category is clicked
-        binding.FruitCategoryCard.setOnClickListener(v -> {
-            openCategory("Fruits");
-        });
-
-        // When fish category is clicked
-        binding.FishCategoryCard.setOnClickListener(v -> {
-            openCategory("Fish");
-        });
+        // Click listeners for all categories
+        binding.vegetableCategoryCard.setOnClickListener(v -> openCategory("Vegetable"));
+        binding.fruitCategoryCard.setOnClickListener(v -> openCategory("Fruit"));
+        binding.meatCategoryCard.setOnClickListener(v -> openCategory("Meat"));
+        binding.fishCategoryCard.setOnClickListener(v -> openCategory("Fish"));
+        binding.breadCategoryCard.setOnClickListener(v -> openCategory("Bread"));
+        binding.dairyCategoryCard.setOnClickListener(v -> openCategory("Snacks"));
 
         return binding.getRoot();
     }
 
-    // Method to open the product list for a specific category
+    // Method to open product display based on category
     private void openCategory(String category) {
         Intent intent = new Intent(getActivity(), ProductDisplayActivity.class);
         intent.putExtra("category", category);
