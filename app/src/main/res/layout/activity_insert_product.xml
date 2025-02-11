@@ -7,6 +7,7 @@
     android:layout_marginStart="32dp"
     android:layout_marginEnd="32dp"
     android:gravity="center"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="16dp"
 
@@ -32,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Product Name"
+        android:textColor="@color/primary_color"
         android:inputType="text"
         android:minHeight="48dp"
         android:layout_marginBottom="16dp"/>
@@ -41,6 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Product Price"
+        android:textColor="@color/primary_color"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
         android:layout_marginBottom="16dp"/>
@@ -50,6 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Product Quantity"
+        android:textColor="@color/primary_color"
         android:inputType="number"
         android:minHeight="48dp"
         android:layout_marginBottom="16dp"/>
@@ -74,6 +78,7 @@
         android:id="@+id/btn_insert_product"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary_color"
         android:text="Insert Product" />
 
 </LinearLayout>

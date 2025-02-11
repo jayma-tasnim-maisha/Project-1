@@ -7,12 +7,38 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/tagline_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome!!!"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary_color"
+        android:gravity="left"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/tagline_text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enjoy the freshness Delivered \nto Your Doorstep!"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:textColor="@color/primary_color"
+        android:gravity="left"
+        android:padding="10dp"
+        android:layout_marginBottom="16dp"/>
+
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Category"
         android:textSize="18sp"
+        android:textColor="#232323"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginStart="6dp"
         android:textStyle="bold"
         android:paddingBottom="8dp" />
 

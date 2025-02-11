@@ -17,6 +17,8 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -36,6 +38,8 @@ public class InsertProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_product);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.primary_color));
 
         productNameEditText = findViewById(R.id.et_product_name);
         productPriceEditText = findViewById(R.id.et_product_price);

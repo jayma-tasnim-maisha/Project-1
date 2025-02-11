@@ -11,6 +11,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import java.util.List;
 
 public class CheckoutActivity extends AppCompatActivity {
@@ -26,6 +28,8 @@ public class CheckoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.primary_color));
 
         // Initialize UI elements
         nameInput = findViewById(R.id.name_input);

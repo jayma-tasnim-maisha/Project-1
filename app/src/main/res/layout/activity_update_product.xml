@@ -8,12 +8,14 @@
         android:id="@+id/edit_text_product_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/primary_color"
         android:hint="Product Name" />
 
     <EditText
         android:id="@+id/edit_text_product_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/primary_color"
         android:hint="Price"
         android:inputType="numberDecimal" />
 
@@ -22,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Quantity"
+        android:textColor="@color/primary_color"
         android:inputType="number" />
 
     <EditText
@@ -31,6 +34,7 @@
         android:hint="Product Description"
         android:inputType="text"
         android:minHeight="48dp"
+        android:textColor="@color/primary_color"
         android:layout_marginBottom="16dp"/>
 
     <Spinner
@@ -47,14 +51,19 @@
 
     <Button
         android:id="@+id/button_select_image"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Image" />
+        android:text="Select Image"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
     <Button
         android:id="@+id/button_update_product"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/primary_color"
         android:text="Update Product" />
 
 </LinearLayout>
