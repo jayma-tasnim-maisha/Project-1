@@ -1,6 +1,7 @@
 package com.example.grocio;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,15 +52,23 @@ public class CartFragment extends Fragment {
         // Back button functionality
         backButton.setOnClickListener(v -> requireActivity().onBackPressed());
 
-        // Checkout button functionality
         checkoutButton.setOnClickListener(v -> {
             if (CartManager.getInstance(requireContext()).getCartItems().isEmpty()) {
                 Toast.makeText(requireContext(), "Your cart is empty!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(requireContext(), "Proceeding to checkout!", Toast.LENGTH_SHORT).show();
-                // Implement checkout logic here
+                // Retrieve total price
+                double totalAmount = 0.0;
+                for (Product product : CartManager.getInstance(requireContext()).getCartItems()) {
+                    totalAmount += product.getPrice();
+                }
+
+                // Navigate to CheckoutActivity and pass total amount
+                Intent intent = new Intent(requireContext(), CheckoutActivity.class);
+                intent.putExtra("TOTAL_AMOUNT", totalAmount);
+                startActivity(intent);
             }
         });
+
     }
 
     private void updateCart() {

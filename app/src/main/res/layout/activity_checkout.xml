@@ -1,10 +1,122 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CheckoutActivity">
+    android:orientation="vertical"
+    android:background="#F1FFFC"
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:contentDescription="Back"
+        android:layout_gravity="start"/>
+
+    <!-- Checkout Title -->
+    <TextView
+        android:id="@+id/checkout_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Checkout"
+        android:textColor="@color/heading_color"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Name Input -->
+    <EditText
+        android:id="@+id/name_input"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Full Name"
+        android:textColor="@color/primary_color"
+        android:textColorHint="#6D6D6D"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Address Input -->
+    <EditText
+        android:id="@+id/address_input"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Shipping Address"
+        android:textColor="@color/primary_color"
+        android:textColorHint="#6D6D6D"
+        android:layout_marginTop="12dp"/>
+
+    <!-- Phone Input -->
+    <EditText
+        android:id="@+id/phone_input"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="@color/primary_color"
+        android:textColorHint="#6D6D6D"
+        android:hint="Phone Number"
+        android:layout_marginTop="12dp"
+        android:inputType="phone"/>
+
+    <!-- Total Price Display -->
+    <TextView
+        android:id="@+id/checkout_total_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total: $0.00"
+        android:textColor="#F80202"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Payment Method Selection -->
+    <TextView
+        android:id="@+id/payment_method_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Payment Method:"
+        android:textColor="@color/heading_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"/>
+
+    <RadioGroup
+        android:id="@+id/payment_method_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp">
+
+        <RadioButton
+            android:id="@+id/radio_bkash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bkash"
+            android:textColor="#161616"/>
+
+        <RadioButton
+            android:id="@+id/radio_nagad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#161616"
+            android:text="Nagad" />
+        <RadioButton
+            android:id="@+id/radio_cod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cash on Delivery"
+            android:textColor="#161616"/>
+    </RadioGroup>
+
+    <!-- Confirm Order Button -->
+    <Button
+        android:id="@+id/confirm_order_button"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Confirm Order"
+        android:backgroundTint="@color/primary_color"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:layout_marginTop="24dp"/>
+
+</LinearLayout>
