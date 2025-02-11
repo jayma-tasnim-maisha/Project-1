@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Grocio"
         tools:targetApi="31">
         <activity
+            android:name=".CheckoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProductDisplayActivity"
             android:exported="false" />
         <activity

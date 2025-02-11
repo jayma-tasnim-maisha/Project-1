@@ -21,6 +21,7 @@ public class ProductDisplayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_display);
 
+
         getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.primary_color));
 
         listViewProducts = findViewById(R.id.listViewProducts);

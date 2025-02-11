@@ -1,46 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#F8F8F8">
+    android:background="#F5F5F5"
+    android:padding="16dp">
 
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:contentDescription="Back" />
+
+    <!-- Cart Header -->
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/cart_header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Your Cart"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_gravity="center"
-        android:paddingBottom="16dp"/>
+        android:gravity="center"
+        android:layout_marginTop="16dp"/>
 
-    <ListView
-        android:id="@+id/cart_list_view"
+
+
+    <!-- RecyclerView for Cart Items -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cart_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"/>
+        android:layout_marginTop="12dp"/>
 
+    <!-- Total Price -->
     <TextView
         android:id="@+id/total_price"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total: Tk 0"
+        android:text="Total: 0.0 Tk"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:gravity="center"
-        android:padding="10dp"
-        android:background="#FFFFFF"/>
+        android:layout_gravity="center"/>
 
+    <!-- Checkout Button -->
     <Button
         android:id="@+id/checkout_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:text="Proceed to Checkout"
+        android:textStyle="bold"
+        android:textSize="16sp"
         android:backgroundTint="@color/primary_color"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="8dp"
-        android:padding="12dp"/>
+        android:textColor="@color/white"
+        android:layout_marginTop="12dp"/>
+
+
 </LinearLayout>

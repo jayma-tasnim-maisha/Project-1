@@ -97,8 +97,8 @@ public class ProductAdapter extends CursorAdapter {
             addToCartButton.setOnClickListener(v -> {
                 Product product = new Product(name, BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length), price);
 
-              //  CartManager.getInstance().addProduct(product);
-                String message = name + " has been added to your cart!";
+                CartManager.getInstance(context).addProduct(product);
+                String message = "Added to your cart!";
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 
                 // Optionally, store the product in SharedPreferences, SQLite, or an in-memory cart
@@ -114,8 +114,6 @@ public class ProductAdapter extends CursorAdapter {
 
     // Example method to add product to the cart
     private void addToCart(String productName, double productPrice) {
-        // You can store the product data in SharedPreferences or a database.
-        // Example: For simplicity, we show a Toast message.
-        // Replace this with your actual cart handling logic.
+
     }
 }
